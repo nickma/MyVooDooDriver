@@ -1,0 +1,17 @@
+<voodoo>
+        <puts text="buttons-test.xml starting." />
+        <browser url="{@global.url}/index.php" />
+        <puts text="Test:Valid user login test is  starting." />
+
+
+        <!--Login as valid user -->
+        <browser assert="SugarCRM" />
+                <form id="form">
+                        <textfield id="user_name" set="{@global.username" />
+                        <textfield id="user_password" set="@global.passoword" />
+                </form>
+        <button id="login_button" click="true" />
+        <browser assert="Welcom" />
+	
+	
+</voodoo>
