@@ -1,0 +1,83 @@
+<voodoo>
+	<puts text="buttons-test.xml starting." />
+        <browser url="{@global.url}/index.php" />
+        <puts text="Test:Valid user login test is  starting." />
+
+
+        <!--Login as valid user -->
+	<browser assert="SugarCRM" />
+        	<form id="form">
+                	<textfield id="user_name" set="{@global.username" />
+                	<textfield id="user_password" set="@global.passoword" />
+        	</form>
+        <button id="login_button" click="true" />
+        <browser assert="Welcom" />
+	
+	
+	<!-- Create an Account record from cvs -->
+       	<puts text="Account Creation Starting" />
+	<link id="moduleTab_0_Accounts" />
+	<browser assert="Search Account" />
+	<link id="create_link" />
+	<browser assert="Create" />
+	<browser assert="Name" />
+	<csv file="{@global.scriptsdir}/csvs/AddAccounts.csv" var="AddAccounts" />
+	<wait timeout= "3" />
+		<form id="EditView">
+			<textfield id="name" set="{@AddAccounts.name}" />
+			<textfield id="website" set="{@AddAccounts.website}" />
+			<textfield id="phone_office" set="{@AddAccounts.phone_office}" />
+			<textfield id="phone_fax" set="{@AddAccounts.phone_fax}" />
+			<textarea id="billing_address_street" set="{@AddAccounts.billing_address_street}" />
+			<textfield id="billing_address_city" set="{@AddAccounts.billing_address_city}" />
+			<textfield id="billing_address_state" set="{@AddAccounts.billing_address_state}" />
+			<textfield id="billing_address_postalcode" set="{@AddAccounts.billing_address_postalcode}" />
+			<textfield id="billing_address_country" set="{@AddAccounts.billing_address_country}" />
+			<textarea id="shipping_address_street" set="{@AddAccounts.shipping_address_street}" />
+			<textfield id="shipping_address_city" set="{@AddAccounts.shipping_address_city}" />
+			<textfield id="shipping_address_state" set="{@AddAccounts.shipping_address_state}" />
+			<textfield id="shipping_address_postalcode" set="{@AddAccounts.shipping_address_postalcode}" />
+			<textfield id="shipping_address_country" set="{@AddAccounts.shipping_address_country}" />
+			<textfield id="Accounts0emailAddress0" set="{@AddAccounts.emailAddress0}" />
+		<button id="SAVE_FOOTER"/>
+		</form>	
+	
+	<!-- Create an Opportunity record from cvs based on previus Account -->
+	<puts text="Opportuity Creation Starting" />
+	<link id="moduleTab_0_Opportunities" />
+	<browser assert="Opportunities" />
+	<link id="create_link" />
+        <browser assert="Create" />
+        <browser assert="Name" />
+	<csv file="{@global.scriptsdir}/csvs/AddOpportunities.csv" var="AddOpportunities" />
+	<wait timeout= "3" />
+		
+		<textfield id="name" set="{@AddOpportunities.name}" />
+		<textfield id="probability" set="{@AddOpportunities.probability}" />
+		<textfield id="date_closed" set="{@AddOpportunities.date_closed}" />
+		<textfield id="next_step" set="{@AddOpportunities.next_step}" />
+		<textarea id="description" set="{@AddOpportunities.description}" />
+		<textfield id="amount" set="{@AddOpportunities.amount}" />
+		<select id="opportunity_type" set="{@AddOpportunities.opportunity_type}" />
+		<select id="lead_source" set="{@AddOpportunities.lead_source}" />
+		<select name="currency_id" set="{@AddOpportunities.currency_id}" />
+		<select id="sales_stage" set="{@AddOpportunities.sales_stage}" />
+
+		<!--Account Name Find and Select -->
+		<button id="btn_account_name" />
+		<attach title="SugarCRM"> 
+			<browser assert="Account List" />
+			<textfield id="name_advanced" set="{@AddAccounts.name}" />
+			<button value="Search" />
+			<link text="{@AddAccounts.name}" />
+			<browser action="close" />
+		</attach>
+	        <button id="SAVE_FOOTER"/>
+	<puts text="Opportuity Creation Finished" />
+	
+	<!-- Validate the Opotrunity was created correctly -->
+	<link text="{@AddAccounts.name}" />
+	<browser assert="{@AddOpportunities.amount}" />
+	<browser assert="{@AddOpportunities.name}" />	               	
+		
+</voodoo>
