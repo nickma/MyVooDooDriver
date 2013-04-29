@@ -7,8 +7,8 @@
         <!--Login as valid user -->
         <browser assert="SugarCRM" />
                 <form id="form">
-                        <textfield id="user_name" set="{@global.username" />
-                        <textfield id="user_password" set="@global.passoword" />
+                        <textfield id="user_name" set="{@global.username}" />
+                        <textfield id="user_password" set="{@global.password}" />
                 </form>
         <button id="login_button" click="true" />
         <browser assert="Welcom" />
