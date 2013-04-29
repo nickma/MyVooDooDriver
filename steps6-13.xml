@@ -13,5 +13,17 @@
         <button id="login_button" click="true" />
         <browser assert="Welcom" />
 	
-	
+	<!-- Clicking on Admin -->
+	<link text="Admin" />
+	<browser assert="Administration" />
+
+	<!-- Display Modules and Subpanels link -->
+       	<puts text="Opening Display Modules and Subpanels" />
+	<link id="configure_tabs" />
+	<!-- Enable project tab -->
+	<div id="yui-gen87" save="d1">		<wait timeout="2" />	</div>		<wait timeout="2" />	<div id="yui-gen73" save="d2">
+		<wait timeout="2" />
+	</div>
+		<wait timeout="2" />	<dnd src="d1" dst="d2" />
+
 </voodoo>
